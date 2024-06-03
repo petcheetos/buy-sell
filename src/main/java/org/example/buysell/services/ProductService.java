@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.buysell.models.Image;
 import org.example.buysell.models.Product;
+import org.example.buysell.models.User;
 import org.example.buysell.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +23,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void saveProduct(Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
+    public void saveProduct(User user, Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
+        product.setUser(user);
         Image image1;
         Image image2;
         Image image3;
@@ -39,9 +41,11 @@ public class ProductService {
             image3 = toImageEntity(file3);
             product.addImageToProduct(image3);
         }
-        log.info("Saving new Product. Title: {}; Author: {}", product.getTitle(), product.getAuthor());
-        Product productFromDb = productRepository.save(product);
-        productFromDb.setPreviewImageId(productFromDb.getImages().get(0).getId());
+        log.info("Saving new Product. Title: {}; Author email: {}", product.getTitle(), product.getUser().getEmail());
+        if (file1.getSize() != 0) {
+            Product productFromDb = productRepository.save(product);
+            productFromDb.setPreviewImageId(productFromDb.getImages().get(0).getId());
+        }
         productRepository.save(product);
     }
 

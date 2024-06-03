@@ -1,8 +1,12 @@
 package org.example.buysell.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.example.buysell.configuration.CustomUserDetails;
 import org.example.buysell.models.Product;
+import org.example.buysell.models.User;
 import org.example.buysell.services.ProductService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +19,16 @@ import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/")
-    public String products(@RequestParam(name = "title", required = false) String title, Model model) {
+    public String products(@RequestParam(name = "title", required = false) String title,
+                           @AuthenticationPrincipal CustomUserDetails user, Model model) {
+        log.debug("Authenticated user: " + user);
         model.addAttribute("products", productService.listProducts(title));
+        model.addAttribute("user", user);
         return "products";
     }
 
@@ -34,8 +42,9 @@ public class ProductController {
 
     @PostMapping("/product/create")
     public String createProduct(@RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2,
-                                @RequestParam("file3") MultipartFile file3, Product product) throws IOException {
-        productService.saveProduct(product, file1, file2, file3);
+                                @RequestParam("file3") MultipartFile file3, Product product,
+                                @AuthenticationPrincipal User user) throws IOException {
+        productService.saveProduct(user, product, file1, file2, file3);
         return "redirect:/";
     }
 
