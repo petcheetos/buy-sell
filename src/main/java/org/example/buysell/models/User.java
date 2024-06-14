@@ -1,35 +1,31 @@
 package org.example.buysell.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.example.buysell.models.enums.Role;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Table(name = "users")
+
 @Entity
-@Data
+@Table(name = "users")
 public class User {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "email", unique = true)
+    @Column(unique = true, updatable = false)
     private String email;
-    @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "username")
-    private String username;
-    @Column(name = "active")
-    private boolean isActive;
+    private String name;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "image_id")
+    @JoinColumn
     private Image avatar;
-    @Column(name = "password", length = 1000)
+    private boolean active;
+    private String activationCode;
+    @Column(length = 1000)
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -38,13 +34,96 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
+            mappedBy = "user")
     private List<Product> products = new ArrayList<>();
 
-    private LocalDateTime creationDate;
+    public void addProductToUser(Product product) {
+        product.setUser(this);
+        products.add(product);
+    }
 
-    @PrePersist
-    private void init() {
-        creationDate = LocalDateTime.now();
+    public boolean isAdmin() {
+        return roles.contains(Role.ADMIN);
+    }
+
+    public Image getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Image avatar) {
+        this.avatar = avatar;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
