@@ -1,8 +1,5 @@
 # BuyN'Sell
 
-## Overview
-Buy-Sell is a project designed to facilitate the buying and selling of items.
-
 ## Technologies Used
 - Java 17
 - Spring Boot
