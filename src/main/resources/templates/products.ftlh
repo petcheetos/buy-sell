@@ -6,7 +6,7 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="searchCity" style="color: #000;">Город</label>
-                <select id="searchCity" class="form-control">
+                <select id="searchCity" class="form-control" name = "searchCity">
                     <option value="">Город не выбран</option>
                     <option value="Москва">Москва</option>
                     <option value="Санкт-Петербург">Санкт-Петербург</option>
