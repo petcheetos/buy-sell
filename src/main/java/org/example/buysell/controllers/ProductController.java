@@ -24,15 +24,6 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    //    @GetMapping("/")
-//    public String products(@RequestParam(name = "searchWord", required = false) String title,
-//                           @AuthenticationPrincipal CustomUserDetails user, Model model) {
-//        log.debug("Authenticated user: " + user);
-//        model.addAttribute("products", productService.listProducts(title));
-//        model.addAttribute("user", productService.getAuthorisedUser(user));
-//        model.addAttribute("searchWord", title);
-//        return "products";
-//    }
     @GetMapping("/")
     public String listProducts(
             @RequestParam(value = "searchCity", required = false) String searchCity,

@@ -42,11 +42,6 @@ public class UserController {
 
         return "login";
     }
-//    @GetMapping("/login")
-//    public String login(Principal principal, Model model) {
-//        model.addAttribute("user", userService.getUserByPrincipal(principal));
-//        return "login";
-//    }
 
     @GetMapping("/registration")
     public String registration(@AuthenticationPrincipal CustomUserDetails user, Model model) {

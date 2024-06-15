@@ -15,13 +15,22 @@
               integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
               crossorigin="anonymous">
 
-        <title>BUYSELL</title>
+        <title>BuyN'Sell</title>
+        <style>
+            .navbar-custom {
+                background-color: #abcdef !important;
+            }
+            .navbar-brand {
+                font-weight: bold !important;
+                color: #000080 !important;
+            }
+        </style>
     </head>
     <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-custom">
         <div class="container-fluid">
             <a href="/">
-                <span class="navbar-brand mb-0 h1">BUYSELL</span>
+                <span class="navbar-brand mb-0 h1">BuyN'Sell</span>
             </a>
             <#if user.email??>
                 <div class="dropdown text-end">

@@ -69,7 +69,7 @@
                             </button>
                         </form>
                     </div>
-                    <#-- Проверка на наличие изображения -->
+
                     <#if product.previewImageId??>
                         <img src="/images/${product.previewImageId}" class="card-img-top">
                     <#else>

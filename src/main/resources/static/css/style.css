@@ -5,5 +5,23 @@
 
 .product-link {
     color: #000 !important;
-    text-decoration: none
+    text-decoration: none;
+}
+
+.card.text-white.bg-dark {
+    background-color: #abcdef !important;
+    border-color: #abcdef !important;
+    color: #000 !important;
+}
+
+.btn.btn-dark {
+    background-color: #abcdef !important;
+    border-color: #abcdef !important;
+    color: #000 !important;
+}
+
+
+body {
+    background-color: #FFF !important;
+    color: #000 !important;
 }
